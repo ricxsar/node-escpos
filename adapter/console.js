@@ -22,7 +22,7 @@ function stdout(data, callback){
   }
   console.log();
 
-  callback();
+  calback && callback();
 }
 
 /**
