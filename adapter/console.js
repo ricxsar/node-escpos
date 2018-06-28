@@ -56,15 +56,12 @@ Console.prototype.write = function(data, callback){
  * @return {[type]} [description]
  */
 Console.prototype.close = function(callback, timeout) {
-
-  console.log(callback);
   
   setTimeout(function() {
 
     callback && callback();
 
   }, "number" === typeof timeout && 0 < timeout ? timeout : 0);
-
 
   return this;
 
