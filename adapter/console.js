@@ -5,8 +5,8 @@
  * @param  {[type]} bit  [description]
  * @return {[type]}      [description]
  */
-function stdout(data, bit){
-  bit = bit || 8;
+function stdout(data, callback){
+  var bit = 8;
   for(var i=0;i < data.length;i+= bit){
     var arr = [];
     for(var j=0;j<bit && i+j<data.length;j++) 
@@ -21,6 +21,8 @@ function stdout(data, bit){
     console.log(arr.join(' '));
   }
   console.log();
+
+  callback();
 }
 
 /**
@@ -43,8 +45,29 @@ Console.prototype.open = function(callback){
  * @param  {[type]} bit  [description]
  * @return {[type]}      [description]
  */
-Console.prototype.write = function(data){
-  this.handler && this.handler(data);
+Console.prototype.write = function(data, callback){
+  this.handler && this.handler(data, callback);
+};
+
+/**
+ * close console
+ * @param  {Function} callback  [description]
+ * @param  {int}      timeout   [allow manual timeout ]
+ * @return {[type]} [description]
+ */
+Console.prototype.close = function(callback, timeout) {
+
+  console.log(callback);
+  
+  setTimeout(function() {
+
+    callback && callback();
+
+  }, "number" === typeof timeout && 0 < timeout ? timeout : 0);
+
+
+  return this;
+
 };
 
 /**
